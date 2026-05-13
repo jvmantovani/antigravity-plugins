@@ -34,7 +34,8 @@ export class ApprovalDetector implements vscode.Disposable {
 
 	// Debounce: only fire if state has been stable for this duration
 	private readonly IDLE_THRESHOLD_MS = 3000;
-	private readonly POLL_INTERVAL_MS = 2000;
+	private readonly POLL_INTERVAL_MS = 5000; // 5s — enough for state observation
+	private hasLoggedFullResponse = false;
 
 	constructor(
 		private config: Config,
@@ -107,10 +108,12 @@ export class ApprovalDetector implements vscode.Disposable {
 
 		if (!userStatus) {return;}
 
-		// Log any state fields we can observe
-		const stateKeys = Object.keys(userStatus);
-		if (stateKeys.length > 0 && this.lastState.lastActivity.getTime() === 0) {
-			this.logger.info(`UserStatus fields available: ${stateKeys.join(', ')}`);
+		// On first successful response, log everything so we can map the fields
+		if (!this.hasLoggedFullResponse) {
+			this.hasLoggedFullResponse = true;
+			this.logger.info(`=== Full userStatus snapshot ===`);
+			this.logger.info(JSON.stringify(userStatus, null, 2));
+			this.logger.info(`================================`);
 		}
 
 		this.lastState.lastActivity = now;
