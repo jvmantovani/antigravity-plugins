@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Build output
+out/
+dist/
+export/
+
+# Packaged extensions
+*.vsix
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode-test/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# pnpm
+.pnpm-debug.log

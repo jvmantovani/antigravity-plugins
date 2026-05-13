@@ -1,0 +1,101 @@
+{
+  "name": "ag-notifier",
+  "displayName": "AG Notifier",
+  "description": "Audio and OS notifications when Antigravity requires user action or completes a prompt",
+  "version": "0.1.0",
+  "publisher": "jvmantovani",
+  "license": "Apache-2.0",
+  "icon": "assets/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jvmantovani/antigravity-plugins.git",
+    "directory": "extensions/ag-notifier"
+  },
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "antigravity",
+    "notification",
+    "audio",
+    "sound",
+    "ai"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "ag-notifier.testSound",
+        "title": "AG Notifier: Test Notification Sound"
+      },
+      {
+        "command": "ag-notifier.toggleEnabled",
+        "title": "AG Notifier: Toggle Notifications"
+      }
+    ],
+    "configuration": {
+      "title": "AG Notifier",
+      "properties": {
+        "ag-notifier.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable or disable all notifications",
+          "order": 1
+        },
+        "ag-notifier.sound.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Play audio when events occur",
+          "order": 2
+        },
+        "ag-notifier.sound.volume": {
+          "type": "number",
+          "default": 50,
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Volume level (0-100)",
+          "order": 3
+        },
+        "ag-notifier.notification.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show OS-level notifications",
+          "order": 4
+        },
+        "ag-notifier.notification.showInEditor": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show toast notifications inside the editor",
+          "order": 5
+        },
+        "ag-notifier.events.onApprovalNeeded": {
+          "type": "boolean",
+          "default": true,
+          "description": "Notify when Antigravity requests user approval",
+          "order": 6
+        },
+        "ag-notifier.events.onPromptComplete": {
+          "type": "boolean",
+          "default": true,
+          "description": "Notify when a prompt finishes processing",
+          "order": 7
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts",
+    "clean": "node -e \"require('fs').rmSync('out',{recursive:true,force:true})\"",
+    "package": "npm run build && npx vsce package --no-dependencies"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

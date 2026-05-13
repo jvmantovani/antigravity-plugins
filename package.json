@@ -1,0 +1,27 @@
+{
+  "name": "antigravity-plugins",
+  "private": true,
+  "description": "Monorepo for Antigravity VS Code extensions",
+  "author": "jvmantovani",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "pnpm --filter './extensions/*' run build",
+    "watch": "pnpm --filter './extensions/*' run watch",
+    "lint": "pnpm --filter './extensions/*' run lint",
+    "package": "pnpm --filter './extensions/*' run package",
+    "clean": "pnpm --filter './extensions/*' run clean"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.90.0",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "@vscode/vsce": "^3.7.1",
+    "eslint": "^9.0.0",
+    "typescript": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  }
+}
