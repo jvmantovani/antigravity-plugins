@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run AG Notifier",
+      "type": "extensionHost",
+      "request": "launch",
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder}/extensions/ag-notifier"
+      ],
+      "outFiles": [
+        "${workspaceFolder}/extensions/ag-notifier/out/**/*.js"
+      ],
+      "preLaunchTask": "build:ag-notifier"
+    }
+  ]
+}
