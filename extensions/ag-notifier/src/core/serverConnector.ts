@@ -1,6 +1,6 @@
 import { exec } from 'child_process';
 import { promisify } from 'util';
-import * as https from 'https';
+import * as http from 'http';
 import { Logger } from '../utils/logger';
 
 const execAsync = promisify(exec);
@@ -107,13 +107,13 @@ export class ServerConnector {
 	}
 
 	/**
-	 * Makes an HTTPS POST request to the language server.
-	 * The server uses a self-signed cert, so we disable TLS validation.
+	 * Makes an HTTP POST request to the language server.
+	 * Note: some Antigravity versions use plain HTTP, others HTTPS.
 	 */
 	request<T>(info: ServerInfo, path: string, body: object): Promise<T> {
 		return new Promise((resolve, reject) => {
 			const data = JSON.stringify(body);
-			const options: https.RequestOptions = {
+			const options: http.RequestOptions = {
 				hostname: '127.0.0.1',
 				port: info.port,
 				path,
@@ -124,11 +124,10 @@ export class ServerConnector {
 					'Connect-Protocol-Version': '1',
 					'X-Codeium-Csrf-Token': info.csrfToken,
 				},
-				rejectUnauthorized: false,
 				timeout: 5000,
 			};
 
-			const req = https.request(options, (res) => {
+			const req = http.request(options, (res) => {
 				let body = '';
 				res.on('data', (chunk) => (body += chunk));
 				res.on('end', () => {
